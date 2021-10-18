@@ -1,9 +1,6 @@
 on:
   push:
-  # TODO: only default branch
   workflow_dispatch:
-    # Manual trigger
-
 jobs:
   terrascan_job:
     runs-on: ubuntu-latest
@@ -13,11 +10,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Terrascan
         id: terrascan
-        uses: accurics/terrascan-action@main
+        uses: docker://nasirrabbani/terrascan-action:test3
         with:
-          iac_type: "terraform"
-          iac_version: "v14"
-          policy_type: "aws"
           only_warn: true
-          verbose: false
-          # config_path: .github/workflows/terrascan/config.yaml
+          verbose: true
+          notification_webhook_url: https://6266-103-83-214-125.ngrok.io/v1/api/terrascan
+          notification_webhook_token: ffce1d0d-0f6d-4146-84a3-d961222d1474
+          repo_url: https://github.com/pankajpatil-accurics/urban-goggles.git
